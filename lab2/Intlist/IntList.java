@@ -84,6 +84,10 @@ public class IntList {
         //TODO:  fill in method
         if(A == null && B ==null) {
             return null;
+        }if(A==null){
+            return B;
+        }if(B==null){
+            return A;
         }
         IntList L=A,R=null;
         R=L;
