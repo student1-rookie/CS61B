@@ -128,6 +128,12 @@ public class IntList {
     }
 
 
+//    public static IntList addFirst(int x,IntList L){
+//        IntList R=new IntList(x,null);
+//        R.rest=L;
+//        return R;
+//    }
+
 
 
 
