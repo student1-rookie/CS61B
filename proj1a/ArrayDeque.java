@@ -13,12 +13,12 @@ public class ArrayDeque<T> {
     }
     private void reSize(int x){
         T []newItems=(T[]) new Object[x];
-        for(int i=0;i<size;i++){
+        for(int i=1;i<size;i++){
             nextFirst++;
             newItems[i]=items[nextFirst%totalSize];
         }
-        totalSize=x;
-        nextFirst=totalSize-1;
+        totalSize=size+1;
+        nextFirst=0;
         nextLast=size;
         items=newItems;
     }
