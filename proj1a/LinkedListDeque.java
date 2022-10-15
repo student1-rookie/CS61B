@@ -2,7 +2,7 @@ public class LinkedListDeque<T> {
     private int size;
     private node last;
     private node sentinel;
-    public class node{
+    private class node{
         public node prev;
         public T data;
         public node next;
@@ -18,11 +18,6 @@ public class LinkedListDeque<T> {
         size=0;
     }
 
-    public LinkedListDeque(LinkedListDeque l){
-        this.size = l.size;
-        this.sentinel = l.sentinel;
-        this.last = l.last;
-    }
 
     public boolean isEmpty(){
         return size == 0;
@@ -104,7 +99,7 @@ public class LinkedListDeque<T> {
         System.out.println(s);
     }
 
-    public T help(node a,int i){
+    private T help(node a,int i){
         if(i==0) return a.data;
         return help(a.next,--i);
     }

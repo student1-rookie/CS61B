@@ -11,14 +11,7 @@ public class ArrayDeque<T> {
         totalSize = 8;
         items = (T[]) new Object[8];
     }
-
-    public ArrayDeque(ArrayDeque other){
-        this.items = (T[]) other.items;
-        this.size = other.size;
-        this.totalSize = other.totalSize;
-        this.nextLast = other.nextLast;
-        this.nextFirst = other.nextFirst;
-    }
+    
 
     private void expand(){
         totalSize*=2;
