@@ -53,6 +53,9 @@ public class LinkedListDeque<T> {
         node q=sentinel.next;
         T x=sentinel.next.data;
         sentinel.next=sentinel.next.next;
+        if(sentinel.next!=null){
+            sentinel.next.prev=null;
+        }
         if(size==0){
             last=null;
         }
