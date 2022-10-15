@@ -18,8 +18,8 @@ public class ArrayDeque<T> {
             newItems[i]=items[nextFirst%totalSize];
         }
         totalSize=x;
-        nextFirst=0;
-        nextLast=totalSize-1;
+        nextFirst=totalSize-1;
+        nextLast=size;
         items=newItems;
     }
     public void addFirst(T i){
@@ -86,7 +86,8 @@ public class ArrayDeque<T> {
     }
     public void printDeque(){
         for(int i=0;i<totalSize;i++){
-            System.out.print(items[i]+" ");
+            nextFirst++;
+            System.out.print(items[nextFirst%totalSize]+" ");
         }
     }
 }
