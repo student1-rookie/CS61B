@@ -42,7 +42,7 @@ public class ArrayDeque<T> {
         T x=items[nextFirst];
         items[nextFirst]=null;
         size--;
-        if(size<totalSize/4&&size>=16){
+        if(size<totalSize/4&&totalSize>=16){
             reSize(totalSize/2);
         }
         return x;
