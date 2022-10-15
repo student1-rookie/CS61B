@@ -53,7 +53,7 @@ public class ArrayDeque<T> {
         }
         items[nextLast]=i;
         size++;
-        nextLast=(nextLast+1)%totalSize;
+        nextLast=(++nextLast)%totalSize;
     }
     public T removeLast(){
         if(size==0){
