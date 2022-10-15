@@ -6,110 +6,71 @@ public class ArrayDeque<T> {
     private int size;
     public ArrayDeque(){
         size=0;
-        nextFirst=0;
-        nextLast=1;
         totalSize=8;
+        nextFirst=totalSize-1;
+        nextLast=0;
         items=(T[]) new Object[8];
     }
-    private void expand(){
-        totalSize*=2;
-        T []newItems=(T[]) new Object[totalSize];
-        if(nextLast==totalSize-1){
-            nextLast=0;
+    private void reSize(int x){
+        T []newItems=(T[]) new Object[x];
+        for(int i=0;i<size;i++){
+            nextFirst++;
+            newItems[i]=items[nextFirst%totalSize];
         }
-        for(int n=0;n<=nextFirst;n++){
-            newItems[n]=items[n];
-        }
-        for(int n=nextLast;n<size;n++){
-            newItems[totalSize-size+n]=items[n];
-        }
+        totalSize=x;
+        nextFirst=0;
+        nextLast=totalSize-1;
         items=newItems;
-        nextFirst=nextFirst+totalSize-size;
-    }
-    private void shrink(){
-        T []p=(T[]) new Object[size];
-        int i=0;
-        for(int j=0;j<totalSize;j++){
-            if(items[j]!=null){
-                p[i]=items[j];
-                i++;
-            }
-        }
-        if(nextLast>size){
-            nextLast=size;
-        }
-        nextFirst=nextFirst-totalSize+size;
-        totalSize=totalSize/2;
-        items=p;
     }
     public void addFirst(T i){
         if(size==totalSize){
-            expand();
+            reSize(totalSize*2);
         }
         items[nextFirst]=i;
         size++;
         if(nextFirst==0){
             nextFirst=totalSize-1;
-            while(items[nextFirst]!=null){
-                nextFirst--;
-            }
         }else{
             nextFirst--;
         }
     }
-    public void addLast(T i){
-        if(size==totalSize){
-            expand();
-        }
-        items[nextLast]=i;
-        size++;
-        if(nextLast==totalSize-1){
-            nextLast=0;
-            while(items[nextLast]!=null){
-                nextLast++;
-            }
-        }else {
-            nextLast++;
-        }
-    }
     public T removeFirst(){
-        T x=null;
-        size--;
-        if(nextFirst==totalSize-1){
-            nextFirst=0;
-        }else{
-            nextFirst++;
+        if(size==0){
+            return null;
         }
-        x=items[nextFirst];
+        nextFirst=(nextFirst+1)%totalSize;
+        T x=items[nextFirst];
         items[nextFirst]=null;
-
-        if(size==totalSize/2&&totalSize!=8){
-            shrink();
+        size--;
+        if(size==totalSize/2&&size>=16){
+            reSize(size/2);
         }
         return x;
     }
+    public void addLast(T i){
+        if(size==totalSize){
+            reSize(totalSize*2);
+        }
+        items[nextLast]=i;
+        size++;
+        nextLast=(nextLast+1)%totalSize;
+    }
     public T removeLast(){
-        T x=null;
-        size--;
+        if(size==0){
+            return null;
+        }
         if(nextLast==0){
             nextLast=totalSize-1;
         }else{
             nextLast--;
         }
-        x=items[nextLast];
+        T x=items[nextLast];
         items[nextLast]=null;
-
-        if(size==totalSize/2&&totalSize!=8){
-            shrink();
+        size--;
+        if(size==totalSize/2&&totalSize>=16){
+            reSize(size/2);
         }
         return x;
-    }
-    public void printDeque(){
-        StringBuilder s=new StringBuilder();
-        for(int i=0;i<totalSize;i++){
-            s.append(items[i]).append(" ");
-        }
-        System.out.println(s);
     }
     public boolean isEmpty(){
         return size==0;
@@ -118,9 +79,14 @@ public class ArrayDeque<T> {
         return size;
     }
     public T get(int index){
-        if(index>=totalSize){
+        if(index>=size){
             return null;
         }
-        return items[index];
+        return items[(nextFirst+1+index)%totalSize];
+    }
+    public void printDeque(){
+        for(int i=0;i<totalSize;i++){
+            System.out.print(items[i]+" ");
+        }
     }
 }
