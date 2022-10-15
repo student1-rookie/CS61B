@@ -17,29 +17,24 @@ public class LinkedListDeque<T> {
         last=null;
         size=0;
     }
-
-
     public boolean isEmpty(){
-        return size == 0;
+        return size==0;
     }
-
     public int size(){
         return size;
     }
-
     public void addFirst(T i){
         size++;
-        node p = new node(i);
-        if(size == 1){
-            last = p;
-            sentinel.next = p;
+        node p=new node(i);
+        if(size==1){
+            last=p;
+            sentinel.next=p;
         }else{
             p.next=sentinel.next;
-            sentinel.next.prev = p;
-            sentinel.next = p;
+            sentinel.next.prev=p;
+            sentinel.next=p;
         }
     }
-
     public  void addLast(T i){
         size++;
         node p=new node(i);
@@ -52,7 +47,6 @@ public class LinkedListDeque<T> {
         p.prev=last;
         last=p;
     }
-
     public T removeFirst(){
         if(sentinel.next==null) return null;
         size--;
@@ -63,51 +57,53 @@ public class LinkedListDeque<T> {
         }
         return x;
     }
-
     public T removeLast(){
-        if(last==null) return null;
+        if(last==null) {
+            return null;
+        }
         size--;
         T x=last.data;
         if(size==0){
             sentinel.next=null;
             last=null;
         }else{
-            last =last.prev;
+            last=last.prev;
             last.next=null;
         }
         return x;
     }
-
     public T get(int i){
-        if(i>size) return null;
+        if(i>size) {
+            return null;
+        }
         node p=sentinel.next;
-        int n=1;
+        int n=0;
         while(n!=i){
             p=p.next;
             n++;
         }
         return p.data;
     }
-
     public void printDeque(){
         node p=sentinel.next;
-        StringBuilder s= new StringBuilder();
+        StringBuilder s=new StringBuilder();
         while(p!=null){
             s.append(p.data).append(" ");
             p=p.next;
         }
         System.out.println(s);
     }
-
     private T help(node a,int i){
-        if(i==0) return a.data;
+        if(i==-1) {
+            return a.data;
+        }
         return help(a.next,--i);
     }
-
     public T getRecursive(int i){
-        if(i>size) return null;
+        if(i>size) {
+            return null;
+        }
 
         return help(sentinel,i);
     }
-
 }
