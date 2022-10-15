@@ -1,12 +1,12 @@
-public class LinkedListDeque<type> {
+public class LinkedListDeque<T> {
     private int size;
     private node last;
     private node sentinel;
     public class node{
         public node prev;
-        public type data;
+        public T data;
         public node next;
-        public node(type i){
+        public node(T i){
             this.next=null;
             this.data=i;
             this.prev=null;
@@ -19,9 +19,9 @@ public class LinkedListDeque<type> {
     }
 
     public LinkedListDeque(LinkedListDeque l){
-        this.size=l.size;
-        this.sentinel=l.sentinel;
-        this.last=l.last;
+        this.size = l.size;
+        this.sentinel = l.sentinel;
+        this.last = l.last;
     }
 
     public boolean isEmpty(){
@@ -32,20 +32,20 @@ public class LinkedListDeque<type> {
         return size;
     }
 
-    public void addFirst(type i){
+    public void addFirst(T i){
         size++;
-        node p=new node(i);
-        if(size==1){
-            last=p;
-            sentinel.next=p;
+        node p = new node(i);
+        if(size == 1){
+            last = p;
+            sentinel.next = p;
         }else{
             p.next=sentinel.next;
-            sentinel.next.prev=p;
-            sentinel.next=p;
+            sentinel.next.prev = p;
+            sentinel.next = p;
         }
     }
 
-    public  void addLast(type i){
+    public  void addLast(T i){
         size++;
         node p=new node(i);
         if(size==1){
@@ -58,10 +58,10 @@ public class LinkedListDeque<type> {
         last=p;
     }
 
-    public type removeFirst(){
+    public T removeFirst(){
         if(sentinel.next==null) return null;
         size--;
-        type x=sentinel.next.data;
+        T x=sentinel.next.data;
         sentinel.next=sentinel.next.next;
         if(size==0){
             last=null;
@@ -69,10 +69,10 @@ public class LinkedListDeque<type> {
         return x;
     }
 
-    public type removeLast(){
+    public T removeLast(){
         if(last==null) return null;
         size--;
-        type x=last.data;
+        T x=last.data;
         if(size==0){
             sentinel.next=null;
             last=null;
@@ -83,7 +83,7 @@ public class LinkedListDeque<type> {
         return x;
     }
 
-    public type get(int i){
+    public T get(int i){
         if(i>size) return null;
         node p=sentinel.next;
         int n=1;
@@ -104,12 +104,12 @@ public class LinkedListDeque<type> {
         System.out.println(s);
     }
 
-    public type help(node a,int i){
+    public T help(node a,int i){
         if(i==0) return a.data;
         return help(a.next,--i);
     }
 
-    public type getRecursive(int i){
+    public T getRecursive(int i){
         if(i>size) return null;
 
         return help(sentinel,i);
