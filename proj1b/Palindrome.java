@@ -7,20 +7,20 @@ public class Palindrome {
         return lld;
     }
     public boolean isPalindrome(String word,CharacterComparator cc){
-        String s="";
-        int size=word.length();
-        int mid=0;
-        if(size%2!=0){
-            mid=size/2;
+        Deque<Character> d=wordToDeque(word);
+        while (d.size()>1){
+            if(!cc.equalChars(d.getFirst(),d.getLast())) return false;
+            d.removeFirst();
+            d.removeLast();
         }
-        if(size<=1) return true;
-        for(int i=size-1;i>=0;i--){
-            s+=word.charAt(i);
-        }
-        for(int i=0;i<size;i++){
-            if(mid!=0&&i==mid) i++;
-            boolean b=cc.equalChars(s.charAt(i),word.charAt(i));
-            if(!b) return false;
+        return true;
+    }
+    public boolean isPalindrome(String word){
+        Deque<Character> d=wordToDeque(word);
+        while (d.size()>1){
+            if(d.getFirst()!=d.getLast()) return false;
+            d.removeFirst();
+            d.removeLast();
         }
         return true;
     }
