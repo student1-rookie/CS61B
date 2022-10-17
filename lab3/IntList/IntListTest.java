@@ -69,6 +69,9 @@ public class IntListTest {
     public void testReverse(){
         IntList A=IntList.of(0,1,2,3);
         assertNotEquals(A,IntList.reverse(A));
+        IntList B = IntList.of(1,2,3,4,5,6);
+        IntList C=IntList.reverse(B);
+        assertEquals(B,IntList.reverse(C));
     }
 
     /** If you're running this from the command line, you'll need
